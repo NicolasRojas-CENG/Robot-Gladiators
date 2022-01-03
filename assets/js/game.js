@@ -24,7 +24,8 @@ var fightOrSkip = function() {
         if (confirmSkip) {
             window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
             // subtract money from playerMoney for skipping
-            playerInfo.money = playerInfo.money - 10;
+            debugger;
+            playerInfo.money = Math.max(0, playerInfo.money - 10);
             return promptFight;
         }
     }
@@ -146,23 +147,21 @@ var endGame = function() {
 var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        "Would you like to 1 (REFILL your health), 2 (UPGRADE your attack), or 3 (LEAVE the store)? Please enter 1, 2, or 3 to make a choice."
     );
+    shopOptionPrompt = parseInt(shopOptionPrompt);
 
     // use switch to carry out action
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
 
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
 
-        case "LEAVE":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             // do nothing, so function will end
             break;
@@ -198,22 +197,22 @@ var playerInfo = {
       },
       refillHealth: function() {
         if (this.money >= 7) {
-          window.alert("Refilling player's health by 20 for 7 dollars.");
+          window.alert("Refilling player's health by 30 for 9 dollars.");
           this.health += 30;
           this.money -= 9;
         } 
         else {
-          window.alert("You don't have enough money!");
+          window.alert("You don't have enough money for a refill!");
         }
       },
       upgradeAttack: function() {
         if (this.money >= 7) {
-          window.alert("Upgrading player's attack by 6 for 7 dollars.");
+          window.alert("Upgrading player's attack by 8 for 8 dollars.");
           this.attack += 8;
           this.money -= 8;
         } 
         else {
-          window.alert("You don't have enough money!");
+          window.alert("You don't have enough money for an upgrade!");
         }
       }
   };
